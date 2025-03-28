@@ -1,2 +1,2 @@
 #!/bin/sh
-node ./node_modules/sanity-check/@iteam/pre-commit.js
+node ./node_modules/@iteam/sanity-check/pre-commit.js
