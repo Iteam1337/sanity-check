@@ -1,2 +1,2 @@
 #!/bin/sh
-node $GIT_DIR/node_modules/sanity-check/index.js
+node ./node_modules/sanity-check/@iteam/pre-commit.js

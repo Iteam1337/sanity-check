@@ -2,7 +2,6 @@
 
 const { execSync } = require("child_process");
 const https = require("https");
-const readline = require("readline");
 const fs = require("fs");
 const path = require("path");
 
@@ -24,7 +23,7 @@ function getGitRoot() {
 function loadEnvFile() {
   try {
     const gitRoot = getGitRoot();
-    const envPath = path.join(__dirname, ".env");
+    const envPath = path.join(gitRoot, ".env");
     const envContent = fs.readFileSync(envPath, "utf8");
     const envVars = {};
 
@@ -126,20 +125,6 @@ function makeApiRequest(prompt) {
   });
 }
 
-function askForConfirmation() {
-  return new Promise((resolve) => {
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
-
-    rl.question("Do you want to proceed with the commit? (y/n) ", (answer) => {
-      rl.close();
-      resolve(answer.toLowerCase() === "y");
-    });
-  });
-}
-
 async function main() {
   try {
     // Get staged changes
@@ -205,16 +190,13 @@ async function main() {
       - Any positive changes or improvements noticed in the diff
 
     Please begin your analysis now and present your findings using the specified format. If no issues are found, state that explicitly in your report.
-    The output should be a simple conclusion if these changes should be commited or not, the full report should not be output
+    The output should be a simple conclusion if these changes should be commited or not, the full report should not be output.
+
+    Very important: include a single row saying "COMMIT: NO" or "COMMIT: YES" at the end of the output, this will be used to determine if the commit should be allowed or not
 
     `;
 
-    // Log the request details
-    console.log("\nSanity checking diff with Claude:");
-    console.log("Model:", config.model);
-    console.log("Prompt length:", prompt.length, "characters");
-    console.log("API Endpoint:", config.apiEndpoint);
-    console.log("----------------------------------------");
+    console.log("Sanity checking diff with Claude...");
 
     // Make the API request
     const response = await makeApiRequest(prompt);
@@ -230,16 +212,8 @@ async function main() {
     console.log(feedback);
 
     // Check for critical issues
-    if (feedback.includes("[CRITICAL]")) {
-      console.log(
-        "\nCritical issues found. Please address them before committing."
-      );
-      // Ask for user confirmation
-      const shouldProceed = await askForConfirmation();
-      if (!shouldProceed) {
-        console.log("\nCommit aborted.");
-        process.exit(1);
-      }
+    if (feedback.includes("COMMIT: NO")) {
+      console.log("\nCritical issues found. Please address them before committing.");
       process.exit(1);
     }
     console.log("\nCommit approved. Committing...");
