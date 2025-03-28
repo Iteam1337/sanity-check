@@ -1,0 +1,24 @@
+{
+  "name": "sanity-check",
+  "version": "1.0.0",
+  "description": "Pre-commit hook that uses AI to check for mistakes leading to security issues",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Iteam1337/sanity-check.git"
+  },
+  "keywords": [
+    "commit",
+    "hook",
+    "security"
+  ],
+  "author": "Andreas Lundqvist, Carin Herrman Brander, Anders Norrback Bornholm",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Iteam1337/sanity-check/issues"
+  },
+  "homepage": "https://github.com/Iteam1337/sanity-check#readme"
+}
