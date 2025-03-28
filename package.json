@@ -1,5 +1,5 @@
 {
-  "name": "sanity-check",
+  "name": "@iteam/sanity-check",
   "version": "1.0.0",
   "description": "Pre-commit hook that uses AI to check for mistakes leading to security issues",
   "main": "index.js",
