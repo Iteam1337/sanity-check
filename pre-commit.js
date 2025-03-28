@@ -190,7 +190,8 @@ async function main() {
       - Any positive changes or improvements noticed in the diff
 
     Please begin your analysis now and present your findings using the specified format. If no issues are found, state that explicitly in your report.
-    The output should be a simple conclusion if these changes should be commited or not, the full report should not be output.
+    The output should be a simple conclusion if these changes should be commited or not, the full report should not be output. But include the file name
+    and the row of each identified issue separately.
 
     Very important: include a single row saying "COMMIT: NO" or "COMMIT: YES" at the end of the output, this will be used to determine if the commit should be allowed or not
 
